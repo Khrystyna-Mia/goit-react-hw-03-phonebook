@@ -151,3 +151,13 @@ Rozszerz funkcjonalność aplikacji, pozwalając użytkownikowi usuwać wcześni
 zapisane kontakty.
 
 ![preview](./mockup/step-6.gif)
+
+## Krok 7
+
+Dodaj przechowywanie kontaktów w książce telefonicznej w localStorage.
+Wykorzystaj metody cyklu życia.
+
+Przy dodawaniu i usuwaniu kontaktów zapisują się one w lokalnym magazynie.
+
+W trakcie ładowania aplikacji, kontakty, jeśli jakieś istnieją, sczytują się z
+lokalnego magazynu i zapisują w stanie.
