@@ -49,7 +49,7 @@ class App extends Component {
     this.setState({ filter: e.currentTarget.value });
   };
 
-  getVisibleContacts = () => {
+  visibleContacts = () => {
     const { contacts, filter } = this.state;
     const normalizedFilter = filter.toLowerCase();
 
@@ -58,18 +58,32 @@ class App extends Component {
     );
   };
 
-  render() {
-    const { filter } = this.state;
-    const visibleContacts = this.getVisibleContacts();
+  componentDidMount() {
+    const contacts = JSON.parse(localStorage.getItem('contacts'));
 
+    if (contacts) {
+      this.setState({ contacts });
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.contacts !== prevState.contacts) {
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+    }
+  }
+
+  render() {
     return (
       <Wrapper>
         <Title>Phonebook</Title>
         <ContactForm onSubmit={this.addContact} />
 
         <Title>Contacts</Title>
-        <ContactFilter value={filter} onChange={this.changeFilter} />
-        <ContactList contacts={visibleContacts} onDelete={this.delContact} />
+        <ContactFilter value={this.state.filter} onChange={this.changeFilter} />
+        <ContactList
+          contacts={this.visibleContacts()}
+          onDelete={this.delContact}
+        />
       </Wrapper>
     );
   }
